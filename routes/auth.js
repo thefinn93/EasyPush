@@ -9,7 +9,8 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-  res.render('login', { title: 'Login', user: req.session.username });
+  res.redirect('/oauth/reddit');
+  // res.render('login', { title: 'Login', user: req.session.username });
 });
 
 router.get('/logout', function(req, res, next) {
