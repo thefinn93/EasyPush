@@ -27,6 +27,9 @@ var Registration = sequelize.define('registration', {
   }
 });
 
+User.sync();
+Registration.sync();
+
 exports.User = User;
 exports.Registration = Registration;
 exports.db = sequelize;
