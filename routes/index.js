@@ -14,16 +14,16 @@ router.get('/', function(req, res, next) {
 router.get('/manifest.json', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({
-    "name": "Easy Push",
-    "short_name": "Easy Push",
-    "icons": [{
-          "src": "images/icon-192x192.png",
-          "sizes": "192x192",
-          "type": "image/png"
+    name: "Easy Push",
+    short_name: "Easy Push",
+    icons: [{
+          src: "images/icon-192x192.png",
+          sizes: "192x192",
+          type: "image/png"
         }],
-    "start_url": "/",
-    "display": "standalone",
-    "gcm_sender_id": settings.GCM.id
+    start_url: "/",
+    display: "standalone",
+    gcm_sender_id: settings.GCM.id + ""
   }));
 });
 
