@@ -23,9 +23,24 @@ var Registration = sequelize.define('registration', {
 });
 
 Registration.belongsTo(User);
+
+var Token = sequelize.define('authorization', {
+  token: {
+    type: Sequelize.STRING
+  },
+  // A human-friendly name for this provider
+  name: {
+    type: Sequelize.STRING
+  }
+});
+
+Token.belongsTo(User);
+
 User.sync();
 Registration.sync();
+Token.sync();
 
 exports.User = User;
 exports.Registration = Registration;
+exports.Token = Token;
 exports.db = sequelize;

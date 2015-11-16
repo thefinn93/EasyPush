@@ -32,7 +32,8 @@ var routes = require('./routes/index');
 var settingsroute = require('./routes/settings');
 var auth = require('./routes/auth');
 var oauth = require('./routes/oauth/index');
-
+var notifications = require('./routes/notifications');
+var token = require('./routes/token');
 
 
 var app = express();
@@ -60,6 +61,8 @@ app.use('/', routes);
 app.use('/auth', auth);
 app.use('/oauth', oauth);
 app.use('/settings', settingsroute);
+app.use('/notifications', notifications);
+app.use('/token', token);
 
 
 
