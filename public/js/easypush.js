@@ -17,6 +17,7 @@ window.addEventListener('load', function() {
   } else {
     console.warn('Service workers aren\'t supported in this browser.');
   }
+  updateSubscriptionList();
 });
 
 // Once the service worker is registered set the initial state
@@ -160,4 +161,13 @@ function unsubscribe() {
 function sendSubscriptionToServer(subscription) {
   console.log("sendSubscriptionToServer", subscription);
   $.post('/settings/subscribe', subscription.toJSON());
+}
+
+function updateSubscriptionList() {
+  $.get('/settings/subscriptions', function(subscriptions) {
+    $(".subscriptions").empty();
+    subscriptions.forEach(function(subscription) {
+      $(".subscriptions").append($("<tr>").append($("<td>").text(subscription.registration_id)));
+    });
+  });
 }

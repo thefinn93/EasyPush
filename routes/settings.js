@@ -11,7 +11,7 @@ router.post('/subscribe', function(req, res, next) {
   if(req.body.endpoint) {
     models.Registration.upsert({
       registration_id: req.body.endpoint,
-      UserId: req.session.username
+      userUsername: req.session.username
     }).then(function() {
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify({
@@ -24,6 +24,19 @@ router.post('/subscribe', function(req, res, next) {
       });
     });
   }
+});
+
+router.get('/subscriptions', function(req, res, next) {
+  models.Registration.findAll({
+    where: { userUsername: req.session.username }
+  }).then(function(registrations) {
+    res.send(registrations);
+  }).catch(function(e) {
+    res.render('error', {
+      message: e.message,
+      error: e
+    });
+  });
 });
 
 module.exports = router;
