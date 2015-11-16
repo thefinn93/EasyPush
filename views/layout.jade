@@ -7,7 +7,11 @@ html
   body
     a(href='https://github.com/thefinn93/EasyPush', target='_blank')
       img(src='images/ribbon.png').ribbon
-    if user
-      div.userbar
-        p= user
+    div.userbar
+      if user
+        = user + ' ['
+        a(href='/auth/logout') logout
+        = ']'
+      else
+        a(href='/auth') login
     block content

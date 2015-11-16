@@ -12,5 +12,18 @@ router.get('/', function(req, res, next) {
   res.render('login', { title: 'Login', user: req.session.username });
 });
 
+router.get('/logout', function(req, res, next) {
+  req.session.destroy(function(e) {
+    if(e) {
+      res.render('error', {
+        message: e.message,
+        error: e
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+});
+
 
 module.exports = router;
