@@ -9,11 +9,11 @@ html
       img(src='images/ribbon.png').ribbon
     div.userbar
       if user
-        = user + ' ['
+        = user + ' [ '
         a(href='/auth/logout') logout
-        = '|'
+        = ' | '
         a(href='/settings') settings
-        = ']'
+        = ' ]'
       else
         a(href='/auth') login
     block content
