@@ -88,14 +88,13 @@ function subscribe() {
       .then(function(subscription) {
         // The subscription was successful
         isPushEnabled = true;
-        pushButton.textContent = 'Disable Push Messages';
+        pushButton.textContent = 'Disable';
         pushButton.disabled = false;
 
         // TODO: Send the subscription.endpoint to your server
         // and save it to send a push message at a later date
         return sendSubscriptionToServer(subscription);
-      })
-      .catch(function(e) {
+      }).catch(function(e) {
         if (Notification.permission === 'denied') {
           // The user denied the notification permission which
           // means we failed to subscribe and the user will need
@@ -109,7 +108,7 @@ function subscribe() {
           // gcm_user_visible_only in the manifest.
           console.error('Unable to subscribe to push.', e);
           pushButton.disabled = false;
-          pushButton.textContent = 'Enable Push Messages';
+          pushButton.textContent = 'Enable';
         }
       });
   });
@@ -120,8 +119,6 @@ function unsubscribe() {
   pushButton.disabled = true;
 
   navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-    // To unsubscribe from push messaging, you need get the
-    // subscription object, which you can call unsubscribe() on.
     serviceWorkerRegistration.pushManager.getSubscription().then(
       function(pushSubscription) {
         // Check we have a subscription to unsubscribe
@@ -130,7 +127,7 @@ function unsubscribe() {
           // to allow the user to subscribe to push
           isPushEnabled = false;
           pushButton.disabled = false;
-          pushButton.textContent = 'Enable Push Messages';
+          pushButton.textContent = 'Enable';
           return;
         }
 
@@ -142,7 +139,7 @@ function unsubscribe() {
         // We have a subscription, so call unsubscribe on it
         pushSubscription.unsubscribe().then(function(successful) {
           pushButton.disabled = false;
-          pushButton.textContent = 'Enable Push Messages';
+          pushButton.textContent = 'Enable';
           isPushEnabled = false;
         }).catch(function(e) {
           // We failed to unsubscribe, this can lead to
@@ -152,7 +149,7 @@ function unsubscribe() {
 
           console.log('Unsubscription error: ', e);
           pushButton.disabled = false;
-          pushButton.textContent = 'Enable Push Messages';
+          pushButton.textContent = 'Enable';
         });
       }).catch(function(e) {
         console.error('Error thrown while unsubscribing from push messaging.', e);
@@ -161,5 +158,6 @@ function unsubscribe() {
 }
 
 function sendSubscriptionToServer(subscription) {
-  console.log("sendSubscriptionToServer", subscription.endpoint);
+  console.log("sendSubscriptionToServer", subscription);
+  $.post('/settings/subscribe', subscription.toJSON());
 }

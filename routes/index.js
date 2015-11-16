@@ -23,6 +23,7 @@ router.get('/manifest.json', function(req, res, next) {
         }],
     start_url: "/",
     display: "standalone",
+    gcm_user_visible_only: true,
     gcm_sender_id: settings.GCM.id + ""
   }));
 });

@@ -17,16 +17,12 @@ var User = sequelize.define('user', {
 
 var Registration = sequelize.define('registration', {
   registration_id: {
-    type: Sequelize.STRING
-  },
-  user: {
-    type: User,
-  },
-  enabled: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.STRING,
+    primaryKey: true
   }
 });
 
+Registration.belongsTo(User);
 User.sync();
 Registration.sync();
 
