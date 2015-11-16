@@ -23,4 +23,13 @@ router.get('/manifest.json', function(req, res, next) {
   }));
 });
 
+if(settings.enableGitHook) {
+  router.post('/githook', function(req, res, next) {
+    var pull = require('child_process').spawn('git', ['pull']);
+    pull.on('close', function(code) {
+      res.send("Pull'd");
+    });
+  });
+}
+
 module.exports = router;
