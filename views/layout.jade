@@ -11,6 +11,8 @@ html
       if user
         = user + ' ['
         a(href='/auth/logout') logout
+        = '|'
+        a(href='/settings') settings
         = ']'
       else
         a(href='/auth') login

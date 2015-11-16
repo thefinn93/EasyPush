@@ -4,7 +4,11 @@ var settings = require('../settings.json');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', user: req.session.username });
+  if(req.session.username) {
+    res.render('pushes', { title: 'Pushes', user: req.session.username });
+  } else {
+    res.render('index', { title: 'EasyPush', user: req.session.username });
+  }
 });
 
 router.get('/manifest.json', function(req, res, next) {
