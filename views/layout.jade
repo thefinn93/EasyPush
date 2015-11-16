@@ -5,4 +5,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='manifest', href='/manifest.json')
   body
+    if user
+      div.userbar
+        p= user
     block content
