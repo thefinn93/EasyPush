@@ -135,6 +135,25 @@ function getregistrations(tokens) {
   return Q.all(registrations);
 }
 
+function checkToken(token) {
+  return models.Token.findOne({where: {token: token}}).then(function(token) {
+    if(token === null) {
+      console.log('Got a bad token!');
+      return Q.reject('inalid token');
+    } else {
+      return models.Notification.create({
+        title: title,
+        body: body,
+        icon: icon,
+        url: url,
+        tokenToken: token.token,
+        userUsername: token.userUsername,
+        seen: false
+      });
+    }
+  });
+}
+
 router.post('/create', function(req, res, next) {
   if(req.body.tokens && req.body.title) {
     var title = req.body.title;
@@ -142,24 +161,13 @@ router.post('/create', function(req, res, next) {
     var icon = req.body.icon;
     var url = req.body.url;
     var tokens = [];
-    req.body.tokens.forEach(function(token) {
-      tokens.push(models.Token.findOne({where: {token: token}}).then(function(token) {
-        if(token === null) {
-          console.log('Got a bad token!');
-          return Q.reject('inalid token');
-        } else {
-          return models.Notification.create({
-            title: title,
-            body: body,
-            icon: icon,
-            url: url,
-            tokenToken: token.token,
-            userUsername: token.userUsername,
-            seen: false
-          });
-        }
-      }));
-    });
+    if(typeof(req.body.tokens) == "string") {
+      tokens.push(checkTokens(req.body.tokens));
+    } else {
+      req.body.tokens.forEach(function(token) {
+        tokens.push(checkTokens(token));
+      });
+    }
     Q.all(tokens).then(getregistrations).then(function(registrations) {
       sendPushes(registrations, title, body, icon, url);
     }).then(function() {
