@@ -66,6 +66,7 @@ function sendPushes(deepregistration, title, body, icon, url) {
       });
     }
   });
+  console.log("Sending notifications to endpoints:", endpoints);
   endpoints.forEach(function(endpoint) {
     if(endpoint.indexOf('https://android.googleapis.com/gcm/send') === 0) {
       var endpointParts = endpoint.split('/');
@@ -78,15 +79,16 @@ function sendPushes(deepregistration, title, body, icon, url) {
     var postdata = JSON.stringify({
       registration_ids: registrationIds
     });
+    console.log("Pinging registration ids:", registrationIds);
     var req = https.request({
       hostname: "android.googleapis.com",
-      auth: "key=" + settings.GCM.key,
       path: '/gcm/send',
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'Content-Length': postdata.length,
-        'User-Agent': USER_AGENT
+        'User-Agent': USER_AGENT,
+        'Authorization': "key=" + settings.GCM.key
       }
     }, function(res) {
       var raw_gcm_response = "";
@@ -95,11 +97,13 @@ function sendPushes(deepregistration, title, body, icon, url) {
       });
       res.on('end', function() {
         try {
+          console.log("Got response from GCM:", raw_gcm_response);
           gcm_response = JSON.parse(raw_gcm_response);
           deferred.resolve({
             success: true
           });
         } catch(e) {
+          console.log(e.stack || e);
           deferred.reject({
             success: false,
             message: e.message,
@@ -157,7 +161,6 @@ router.post('/create', function(req, res, next) {
       }));
     });
     Q.all(tokens).then(getregistrations).then(function(registrations) {
-      console.log('Sending pushes to', registrations);
       sendPushes(registrations, title, body, icon, url);
     }).then(function() {
       res.send({success: true});

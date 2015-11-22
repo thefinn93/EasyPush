@@ -11,28 +11,15 @@ self.addEventListener('push', function(event) {
 });
 
 function makeNotification(data, registration) {
-  if (data.error || !data.notification || !data.notification.title) {
+  if (data.error) {
     console.error('The API returned an error.', data.error);
     throw new Error();
   }
-  registration.showNotification(title, data.notification);
-}
-
-function get(registration) {
-  return new Promise(function(resolve, reject) {
-    var req = new XMLHttpRequest();
-    req.open('GET', "/notifications/unread");
-    req.onload = function() {
-      if (req.status == 200) {
-        resolve(req.response);
-      }
-      else {
-        reject(Error(req.statusText));
-      }
-    };
-    req.onerror = function() {
-      reject(Error("Network Error"));
-    };
-    req.send();
+  data.forEach(function(notification) {
+    console.log(notification);
+    if(!notification.title) {
+      new Error("No title for notification!");
+    }
+    registration.showNotification(notification.title, notification);
   });
 }
