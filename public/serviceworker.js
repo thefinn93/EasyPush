@@ -31,7 +31,7 @@ function makeNotification(data, registration) {
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
   var windowOpen = Promise(function(resolve, reject) { resolve(); });
-  if(event.notification.data.url || event.notification.data.url === "") {
+  if(event.notification.data.url || event.notification.data.url !== null) {
     windowOpen = clients.openWindow(event.notification.data.url);
   }
   event.waitUntil(windowOpen.then(function() {
