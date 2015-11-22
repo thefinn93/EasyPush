@@ -139,8 +139,8 @@ router.post('/create', function(req, res, next) {
   if(req.body.tokens && req.body.title) {
     var title = req.body.title;
     var body = req.body.body || "";
-    var icon = req.body.icon || config.defaultIcon || "/images/easypush.png";
-    var url = req.body.url || config.defaultURL || "/";
+    var icon = req.body.icon;
+    var url = req.body.url;
     var tokens = [];
     req.body.tokens.forEach(function(token) {
       tokens.push(models.Token.findOne({where: {token: token}}).then(function(token) {
