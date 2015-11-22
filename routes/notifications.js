@@ -165,7 +165,7 @@ router.post('/create', function(req, res, next) {
       tokens.push(checkTokens(req.body.tokens));
     } else {
       req.body.tokens.forEach(function(token) {
-        tokens.push(checkTokens(token));
+        tokens.push(checkToken(token));
       });
     }
     Q.all(tokens).then(getregistrations).then(function(registrations) {
