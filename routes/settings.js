@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 router.post('/subscribe', function(req, res, next) {
   if(req.body.endpoint) {
     models.Registration.upsert({
-      registration_id: req.body.endpoint,
+      endpoint: req.body.endpoint,
       userUsername: req.session.username
     }).then(function() {
       res.setHeader('Content-Type', 'application/json');

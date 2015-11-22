@@ -1,5 +1,4 @@
 var express = require('express');
-var https = require('https');
 var querystring = require('querystring');
 
 var settings = require('../settings.json');

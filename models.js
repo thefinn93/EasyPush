@@ -16,7 +16,7 @@ var User = sequelize.define('user', {
 });
 
 var Registration = sequelize.define('registration', {
-  registration_id: {
+  endpoint: {
     type: Sequelize.STRING,
     primaryKey: true
   }
@@ -24,7 +24,7 @@ var Registration = sequelize.define('registration', {
 
 Registration.belongsTo(User);
 
-var Token = sequelize.define('authorization', {
+var Token = sequelize.define('token', {
   token: {
     type: Sequelize.STRING
   },
@@ -36,11 +36,34 @@ var Token = sequelize.define('authorization', {
 
 Token.belongsTo(User);
 
+var Notification = sequelize.define('notification', {
+  title: {
+    type: Sequelize.STRING
+  },
+  body: {
+    type: Sequelize.STRING
+  },
+  url: {
+    type: Sequelize.STRING
+  },
+  icon: {
+    type: Sequelize.STRING
+  },
+  seen: {
+    type: Sequelize.BOOLEAN
+  }
+});
+
+Notification.belongsTo(Token);
+Notification.belongsTo(User);
+
 User.sync();
-Registration.sync();
 Token.sync();
+Registration.sync();
+Notification.sync();
 
 exports.User = User;
-exports.Registration = Registration;
 exports.Token = Token;
+exports.Registration = Registration;
+exports.Notification = Notification;
 exports.db = sequelize;
