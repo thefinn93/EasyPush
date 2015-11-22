@@ -135,8 +135,8 @@ function getregistrations(tokens) {
   return Q.all(registrations);
 }
 
-function checkToken(token) {
-  return models.Token.findOne({where: {token: token}}).then(function(token) {
+function checkToken(check, title, body, icon, url) {
+  return models.Token.findOne({where: {token: check}}).then(function(token) {
     if(token === null) {
       console.log('Got a bad token!');
       return Q.reject('inalid token');
@@ -162,10 +162,10 @@ router.post('/create', function(req, res, next) {
     var url = req.body.url;
     var tokens = [];
     if(typeof(req.body.tokens) == "string") {
-      tokens.push(checkToken(req.body.tokens));
+      tokens.push(checkToken(req.body.tokens, title, body, icon, url));
     } else {
       req.body.tokens.forEach(function(token) {
-        tokens.push(checkToken(token));
+        tokens.push(checkToken(token, title, body, icon, url));
       });
     }
     Q.all(tokens).then(getregistrations).then(function(registrations) {
