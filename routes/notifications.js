@@ -162,7 +162,7 @@ router.post('/create', function(req, res, next) {
     var url = req.body.url;
     var tokens = [];
     if(typeof(req.body.tokens) == "string") {
-      tokens.push(checkTokens(req.body.tokens));
+      tokens.push(checkToken(req.body.tokens));
     } else {
       req.body.tokens.forEach(function(token) {
         tokens.push(checkToken(token));
