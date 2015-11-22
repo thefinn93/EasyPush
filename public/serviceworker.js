@@ -30,7 +30,11 @@ function makeNotification(data, registration) {
 
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
-  event.waitUntil(clients.openWindow(event.notification.data.url).then(function() {
+  var windowOpen = Promise(function(resolve, reject) { resolve(); });
+  if(event.notification.data.url || event.notification.data.url === "") {
+    windowOpen = clients.openWindow(event.notification.data.url);
+  }
+  event.waitUntil(windowOpen.then(function() {
     return fetch('/notifications/read/' + event.notification.data.id, {credentials: 'include'});
   }));
 });
