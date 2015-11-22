@@ -18,10 +18,7 @@ router.post('/subscribe', function(req, res, next) {
         "subscribed": true
       }));
     }).catch(function(e) {
-      res.render('error', {
-        message: e.message,
-        error: e
-      });
+      throw e;
     });
   }
 });
@@ -32,10 +29,7 @@ router.get('/subscriptions', function(req, res, next) {
   }).then(function(registrations) {
     res.send(registrations);
   }).catch(function(e) {
-    res.render('error', {
-      message: e.message,
-      error: e
-    });
+    throw e;
   });
 });
 

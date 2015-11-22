@@ -24,6 +24,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var raven = require('raven');
 
 var settings = require('./settings.json');
 var models = require('./models.js');
@@ -35,8 +36,10 @@ var oauth = require('./routes/oauth/index');
 var notifications = require('./routes/notifications');
 var token = require('./routes/token');
 
-
 var app = express();
+app.use(raven.middleware.express.requestHandler(settings.sentryDSN));
+app.use(raven.middleware.express.errorHandler(settings.sentryDSN));
+
 app.db = models.db;
 var sessionStorage = new SequelizeStore({db: models.db});
 app.use(session({
@@ -74,27 +77,9 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+  res.end('error', res.sentry);
 });
 
 

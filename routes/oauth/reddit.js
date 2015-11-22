@@ -70,11 +70,7 @@ function get_reddit_token(req, res) {
       });
       ident_req.on('error', function(e) {
         console.log('[reddit_oauth]', 'Error requesting identity info:', e.message);
-        res.status(500);
-        res.render('error', {
-          message: e.message,
-          error: e
-        });
+        throw e;
       });
       ident_req.end();
     });
@@ -82,11 +78,7 @@ function get_reddit_token(req, res) {
 
   token_req.on('error', function(e) {
     console.log('[reddit_oauth]', 'Error requesting identity info:', e.message);
-    res.status(500);
-    res.render('error', {
-      message: e.message,
-      error: e
-    });
+    throw e;
   });
 
   token_req.write(postdata);

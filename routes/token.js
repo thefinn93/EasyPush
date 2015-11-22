@@ -19,10 +19,7 @@ router.get('/list', function(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     res.send(tokens);
   }).catch(function(e) {
-    res.render('error', {
-      message: e.message,
-      error: e
-    });
+    throw e;
   });
 });
 

@@ -9,16 +9,12 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
   res.redirect('/oauth/reddit');
-  // res.render('login', { title: 'Login', user: req.session.username });
 });
 
 router.get('/logout', function(req, res, next) {
   req.session.destroy(function(e) {
     if(e) {
-      res.render('error', {
-        message: e.message,
-        error: e
-      });
+      throw e;
     } else {
       res.redirect('/');
     }
