@@ -5,8 +5,9 @@ var router = express.Router();
 
 function gentoken() {
   var out = "";
+  var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   while(out.length < 20) {
-    out += String.fromCharCode(Math.floor(Math.random() * 93) + 33);
+    out += charset.charAt(Math.floor(Math.random() * charset.length) - 1);
   }
   return out;
 }
