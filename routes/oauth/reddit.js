@@ -102,12 +102,14 @@ exports.preauth = function (req, res, next) {
 exports.postauth = function(req, res, next) {
   if(req.query.error) {
     req.session.login_error = req.query.error;
+    console.log(req.query.error);
     res.redirect(settings.baseURI + '/auth');
   } else if (req.query.state && req.query.code) {
     if(req.query.state == req.session.reddit_state) {
       get_reddit_token(req, res);
     } else {
       req.session.login_error = "Bad state";
+      console.log("Bad state!");
       res.redirect(settings.baseURI + '/auth');
     }
   }
