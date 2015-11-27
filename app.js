@@ -45,7 +45,11 @@ var sessionStorage = new SequelizeStore({db: models.db});
 app.use(session({
   secret: settings.secret,
   store: sessionStorage,
-  proxy: settings.proxy
+  proxy: settings.proxy,
+  cookie: {
+    secure: settings.secureCookie,
+    maxAge: new Date(Date.now() + 3600000 * 24 * 365 * 10)
+  }
 }));
 sessionStorage.sync();
 
