@@ -18,16 +18,24 @@ router.get('/unread', function(req, res, next) {
   });
 });
 
-router.get('/list', function(req, res, next) {
+function list(req, res, next) {
+  var page = 1;
+  var pagesize = 10;
+  if(req.params.page) {
+    page = req.params.page;
+  }
   models.Notification.findAll({where: {
     userUsername: req.session.username
-  }}).then(function(notifications) {
+  }, limit: page*pagesize}).then(function(notifications) {
     res.send(JSON.stringify(notifications));
   }).catch(function(e) {
     res.send(JSON.stringify({success: false, message: e.message, stack: e.stack}));
   });
 
-});
+}
+
+router.get('/list/:page*', list);
+router.get('/list', list);
 
 router.get('/read/:notification', function(req, res, next) {
   models.Notification.update({seen: true}, {
