@@ -23,7 +23,8 @@ function makeNotification(data, registration) {
     registration.showNotification(notification.title, {
       body: notification.body,
       icon: notification.icon,
-      data: notification
+      data: notification,
+      tag: 'easypush-' + notification.id
     });
   });
 }
