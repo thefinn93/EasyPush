@@ -36,3 +36,5 @@ npm-debug.log
 settings.json
 
 *.db
+
+public/vendor

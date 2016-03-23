@@ -14,3 +14,7 @@ body {
 a {
   color: #00B7FF;
 }
+
+.timestamp {
+  color: rgba(0,0,0,.4);
+}

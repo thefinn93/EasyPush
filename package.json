@@ -2,7 +2,7 @@
   "name": "easypush",
   "version": "0.0.1",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "grunt build && node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
@@ -11,12 +11,19 @@
     "debug": "~2.2.0",
     "express": "~4.12.4",
     "express-session": "^1.12.1",
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^1.0.0",
     "jade": "~1.9.2",
     "morgan": "~1.5.3",
     "q": "^1.4.1",
     "raven": "^0.8.1",
+    "semantic-ui-css": "^2.1.8",
     "sequelize": "^3.13.0",
     "serve-favicon": "~2.2.1"
   },
-  "repository": "https://github.com/thefinn93/EasyPush"
+  "repository": "https://github.com/thefinn93/EasyPush",
+  "devDependencies": {
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+  }
 }
