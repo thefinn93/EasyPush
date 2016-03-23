@@ -3,14 +3,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-
-.ribbon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: 0;
-}
-
 a {
   color: #00B7FF;
 }
