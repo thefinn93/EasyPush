@@ -4,7 +4,7 @@ function renderPushes(response) {
     response.json().then(function(data) {
       data.forEach(function(notification) {
         var item = $("<div>").addClass('item');
-        var img = $("<img>").attr('src', notification.icon).addClass('ui').addClass('image');
+        var img = $("<img>").attr('src', notification.icon).addClass('ui').addClass('image').addClass('avatar');
         var content = $("<div>").addClass('content');
         var header = $("<a>").addClass("header").text(notification.title).attr('href', notification.url);
         var description = $("<div>").addClass("description").text(notification.body);
