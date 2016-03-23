@@ -26,7 +26,7 @@ function list(req, res, next) {
   }
   models.Notification.findAll({where: {
     userUsername: req.session.username
-  }, limit: page*pagesize}).then(function(notifications) {
+  }, order: [['createdAt', 'DESC']], limit: page*pagesize}).then(function(notifications) {
     res.send(JSON.stringify(notifications));
   }).catch(function(e) {
     res.send(JSON.stringify({success: false, message: e.message, stack: e.stack}));
