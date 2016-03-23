@@ -16,7 +16,16 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          {flatten: true, expand: true, src: ['node_modules/semantic-ui-css/semantic.min.css', 'node_modules/semantic-ui-css/semantic.css'], dest: 'public/vendor/semantic-ui'}
+          {
+            flatten: true,
+            expand: true,
+            src: ['node_modules/semantic-ui-css/semantic.min.css', 'node_modules/semantic-ui-css/semantic.css'], dest: 'public/vendor/semantic-ui'
+          },
+          {
+            flatten: true,
+            expand: true,
+            src: ['node_modules/moment/min/*'], dest: 'public/vendor/moment'
+          }
         ]
       }
     }

@@ -8,7 +8,7 @@ function renderPushes(response) {
         var content = $("<div>").addClass('content');
         var header = $("<a>").addClass("header").text(notification.title).attr('href', notification.url);
         var description = $("<div>").addClass("description").text(notification.body);
-        var timestamp = $("<span>").text(notification.createdAt).addClass('timestamp');
+        var timestamp = $("<span>").text(notification.createdAt).addClass('timestamp').livestamp(notification.createdAt);
         description.append(" ").append(timestamp);
         content.append(header).append(description);
         item.append(img).append(content);
