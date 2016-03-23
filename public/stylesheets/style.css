@@ -18,3 +18,8 @@ a {
 .timestamp {
   color: rgba(0,0,0,.4);
 }
+
+.icon {
+  width: 2em;
+  height: 2em;
+}
