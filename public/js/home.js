@@ -5,7 +5,8 @@ function renderPushes(response) {
       data.forEach(function(notification) {
         var push = $("<li>")
           .append($("<h2>").text(notification.title))
-          .append($("<p>").text(notification.body));
+          .append($("<p>").text(notification.body))
+          .append($("<a>").attr('href', notification.url).text("Link"));
         pushlist.append(push);
       });
     });
