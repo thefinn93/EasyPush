@@ -24,6 +24,6 @@
   "repository": "https://github.com/thefinn93/EasyPush",
   "devDependencies": {
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0"
   }
 }
