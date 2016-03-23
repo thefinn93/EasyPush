@@ -25,6 +25,11 @@ module.exports = function(grunt) {
             flatten: true,
             expand: true,
             src: ['node_modules/moment/min/*'], dest: 'public/vendor/moment'
+          },
+          {
+            flatten: true,
+            expand: true,
+            src: ['node_modules/waypoints/lib/*'], dest: 'public/vendor/waypoints'
           }
         ]
       }

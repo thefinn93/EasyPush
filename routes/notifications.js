@@ -20,14 +20,21 @@ router.get('/unread', function(req, res, next) {
 
 function list(req, res, next) {
   var page = 1;
-  var pagesize = 100;
+  var pagesize = 10;
   if(req.params.page) {
     page = req.params.page;
   }
+  var limit = page*pagesize;
+  var offset = limit-pagesize;
+
   models.Notification.findAll({where: {
     userUsername: req.session.username
-  }, order: [['createdAt', 'DESC']], limit: page*pagesize}).then(function(notifications) {
-    res.send(JSON.stringify(notifications));
+  }, order: [['createdAt', 'DESC']], offset: offset, limit: limit}).then(function(notifications) {
+    var response = {
+      page: page,
+      notifications: notifications
+    };
+    res.send(JSON.stringify(response));
   }).catch(function(e) {
     res.send(JSON.stringify({success: false, message: e.message, stack: e.stack}));
   });
