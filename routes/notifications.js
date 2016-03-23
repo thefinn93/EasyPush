@@ -20,7 +20,7 @@ router.get('/unread', function(req, res, next) {
 
 function list(req, res, next) {
   var page = 1;
-  var pagesize = 10;
+  var pagesize = 100;
   if(req.params.page) {
     page = req.params.page;
   }
