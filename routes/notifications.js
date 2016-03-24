@@ -66,6 +66,23 @@ router.get('/read/:notification', function(req, res, next) {
   });
 });
 
+router.get('/:notification', function(req, res, next) {
+  models.Notification.find({where: {
+    userUsername: req.session.username,
+    id: req.params.notification
+  }}).then(function(notification) {
+    if(notification === null) {
+      res.redirect('/auth');
+    }
+    if(notification.icon === null) {
+      notification.icon = '/images/no-icon.png';
+    }
+    res.render('notification', {user: req.session.username, notification: notification, json: JSON.stringify(notification)});
+  }).catch(function(e) {
+    res.send(JSON.stringify({success: false, message: e.message, stack: e.stack}));
+  });
+});
+
 function sendPushes(deepregistration, title, body, icon, url) {
   var deferred = Q.defer();
   var registrationIds = [];  // GCM registration IDs
