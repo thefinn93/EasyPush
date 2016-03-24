@@ -2,6 +2,22 @@ function renderPushes(response) {
   var pushlist = $(".pushlist");
   if(response.status == 200) {
     response.json().then(function(data) {
+      if(data.notifications.length > 0) {
+        var waypoint = $("<div>");
+        pushlist.append(waypoint);
+        waypoint.waypoint(function() {
+            console.log(data.page, waypoint);
+            var page = parseInt(data.page)+1;
+            if(window.currentPage < page) {
+              fetch('/notifications/list/' + page, {credentials: 'include'}).then(renderPushes);
+            }
+            $(this.element).remove();
+          }, {
+            offset: 'bottom-in-view'
+          });
+      } else {
+        console.log("Triggered waypoint on empty data");
+      }
       data.notifications.forEach(function(notification) {
         var item = $("<div>").addClass('item');
         var img = $("<img>").attr('src', notification.icon).addClass('ui').addClass('image').addClass('icon');
@@ -17,18 +33,6 @@ function renderPushes(response) {
         item.append(img).append(content);
         pushlist.append(item);
       });
-      if(data.notifications.length > 0) {
-        $("<div>").waypoint({
-          handler: function() {
-            var page = parseInt(data.page)+1;
-            if(window.currentPage < page) {
-              fetch('/notifications/list/' + page, {credentials: 'include'}).then(renderPushes);
-              window.currentPage++;
-              console.log(this);
-            }
-          }
-        });
-      }
     });
   } else {
     console.log("Something's wrong with the response:", response);
