@@ -13,7 +13,7 @@ block content
             div.header= notification.title
             div.meta
               span from
-              span Test App
+              span= notification.token.name
               a.right(data-livestamp='#{notification.createdAt}', href='/notifications/' + notification.id)
             div.description= notification.body
 

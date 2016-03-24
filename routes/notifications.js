@@ -70,14 +70,19 @@ router.get('/:notification', function(req, res, next) {
   models.Notification.find({where: {
     userUsername: req.session.username,
     id: req.params.notification
-  }}).then(function(notification) {
+  },
+  include: [models.Token]
+  }).then(function(notification) {
     if(notification === null) {
       res.redirect('/auth');
     }
     if(notification.icon === null) {
       notification.icon = '/images/no-icon.png';
     }
-    res.render('notification', {user: req.session.username, notification: notification, json: JSON.stringify(notification)});
+    if(notification.token === null) {
+      notification.token = {name: '(unknown token)'};
+    }
+    res.render('notification', {user: req.session.username, notification: notification});
   }).catch(function(e) {
     res.send(JSON.stringify({success: false, message: e.message, stack: e.stack}));
   });
@@ -173,12 +178,13 @@ function checkToken(check, title, body, icon, url) {
       console.log('Got a bad token!');
       return Q.reject('inalid token');
     } else {
+      console.dir(token);
       return models.Notification.create({
         title: title,
         body: body,
         icon: icon,
         url: url,
-        tokenToken: token.token,
+        tokenId: token.id,
         userUsername: token.userUsername,
         seen: false
       });
