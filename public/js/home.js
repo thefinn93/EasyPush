@@ -20,7 +20,7 @@ function renderPushes(response) {
       }
       data.notifications.forEach(function(notification) {
         var item = $("<div>").addClass('item');
-        var img = $("<img>").attr('src', notification.icon).addClass('ui').addClass('image').addClass('icon');
+        var img = $("<img>").attr('src', notification.icon).addClass('ui').addClass('image').addClass('mini');
         if(notification.icon === null) {
           img.attr('src', '/images/no-icon.png');
         }
