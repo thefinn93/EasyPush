@@ -34,6 +34,8 @@ self.addEventListener('notificationclick', function(event) {
   var windowOpen = new Promise(function(resolve, reject) { resolve(); });
   if(event.notification.data.url || event.notification.data.url !== null) {
     windowOpen = clients.openWindow(event.notification.data.url);
+  } else {
+    windowOpen = clients.openWindow('/notifications/' + event.notification.data.id);
   }
   event.waitUntil(windowOpen.then(function() {
     return fetch('/notifications/read/' + event.notification.data.id, {credentials: 'include'});
