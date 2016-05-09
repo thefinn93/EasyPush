@@ -11,7 +11,7 @@
     "debug": "~2.2.0",
     "express": "~4.12.4",
     "express-session": "^1.12.1",
-    "grunt": "^0.4.5",
+    "grunt": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",
     "jade": "~1.9.2",
     "moment": "^2.12.0",
