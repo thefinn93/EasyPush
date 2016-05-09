@@ -20,7 +20,7 @@
     "raven": "^0.8.1",
     "semantic-ui-css": "^2.1.8",
     "sequelize": "^3.13.0",
-    "serve-favicon": "~2.2.1",
+    "serve-favicon": "~2.3.0",
     "waypoints": "^4.0.0"
   },
   "repository": "https://github.com/thefinn93/EasyPush",
