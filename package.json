@@ -5,7 +5,7 @@
     "start": "grunt build && node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.12.4",
+    "body-parser": "~1.15.1",
     "connect-session-sequelize": "^2.3.1",
     "cookie-parser": "~1.4.1",
     "debug": "~2.2.0",
