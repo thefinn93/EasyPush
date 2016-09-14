@@ -11,6 +11,10 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.get('/docs', function(req, res, next) {
+  res.render('docs', { title: 'Documentation', user: req.session.username});
+});
+
 router.get('/manifest.json', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({
