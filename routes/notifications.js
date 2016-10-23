@@ -8,6 +8,9 @@ var settings = require('../settings.json');
 var router = express.Router();
 
 router.get('/unread', function(req, res, next) {
+  if(res.session === undefined) {
+    res.send(JSON.stringify({success: false, message: "Not signed in", signed_in: false}));
+  }
   models.Notification.findAll({where: {
     seen: false,
     userUsername: req.session.username
