@@ -14,7 +14,7 @@ function makeNotification(data, registration) {
   if (data.error) {
     console.error('The API returned an error.', data.error);
     throw new Error();
-  } else if(data.signed_in === false) {
+  } else if(data.hasOwnProperty("signed_in") && data.signed_in === false) {
     registration.showNotification("You've been signed out of easy push!", {
       body: "Click here to sign back in.",
       tag: 'easypush-signout',
