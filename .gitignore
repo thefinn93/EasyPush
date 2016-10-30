@@ -60,3 +60,4 @@ docs/_build/
 target/
 
 config.cfg
+config.py
