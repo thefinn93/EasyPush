@@ -8,7 +8,7 @@
     "body-parser": "~1.15.1",
     "connect-session-sequelize": "^3.0.0",
     "cookie-parser": "~1.4.1",
-    "debug": "~2.2.0",
+    "debug": "~2.5.2",
     "express": "~4.13.4",
     "express-session": "^1.12.1",
     "grunt": "^1.0.1",
