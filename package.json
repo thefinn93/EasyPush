@@ -17,7 +17,7 @@
     "moment": "^2.12.0",
     "morgan": "~1.7.0",
     "q": "^1.4.1",
-    "raven": "^2.0.2",
+    "raven": "^2.1.0",
     "semantic-ui-css": "^2.1.8",
     "sequelize": "^3.13.0",
     "serve-favicon": "~2.3.0",
