@@ -19,7 +19,7 @@
     "q": "^1.4.1",
     "raven": "^1.1.1",
     "semantic-ui-css": "^2.1.8",
-    "sequelize": "^4.4.9",
+    "sequelize": "^4.4.10",
     "serve-favicon": "~2.3.0",
     "waypoints": "^4.0.0"
   },
